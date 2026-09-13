@@ -1,0 +1,24 @@
+{
+  "name": "wordworld",
+  "version": "0.1.0",
+  "private": true,
+  "description": "An endless multiplayer word search with a global and friends leaderboard",
+  "main": "server/index.js",
+  "engines": { "node": ">=22.5.0" },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node test/zoom.js && node test/persistence.js && node test/overlap.js && node test/client-geometry.js && node test/e2e.js",
+    "test:zoom": "node test/zoom.js",
+    "test:persistence": "node test/persistence.js",
+    "test:overlap": "node test/overlap.js",
+    "test:geometry": "node test/client-geometry.js",
+    "test:e2e": "node test/e2e.js"
+  },
+  "dependencies": {
+    "an-array-of-english-words": "^2.0.0",
+    "express": "^5.1.0",
+    "wordlist-english": "^1.2.1",
+    "ws": "^8.18.3"
+  }
+}

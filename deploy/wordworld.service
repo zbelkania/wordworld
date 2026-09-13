@@ -1,0 +1,25 @@
+[Unit]
+Description=WordWorld game server
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/srv/wordworld
+ExecStart=/usr/bin/node server/index.js
+Restart=always
+RestartSec=3
+
+# Set WORLD_SEED with: sudo systemctl edit wordworld
+# [Service]
+# Environment=WORLD_SEED=your-long-random-string
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=DB_PATH=/var/lib/wordworld/wordworld.db
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/wordworld
+
+[Install]
+WantedBy=multi-user.target

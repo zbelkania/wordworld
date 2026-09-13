@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>WordWorld — an endless word search</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div id="signin" class="overlay">
+  <div class="signin-card">
+    <h1>WordWorld</h1>
+    <p class="tagline">An endless grid. Find words before anyone else does.</p>
+    <label for="username">Pick a name</label>
+    <input id="username" type="text" maxlength="16" autocomplete="off"
+           spellcheck="false" placeholder="3–16 letters, numbers or _">
+    <p id="signin-error" class="field-error" hidden></p>
+    <button id="signin-go" type="button">Start playing</button>
+    <p class="fine">Any name works. Reuse it later to get your score back.</p>
+  </div>
+</div>
+
+<header id="topbar" hidden>
+  <div class="brand">WordWorld</div>
+
+  <div class="stat">
+    <span class="stat-value" id="score">0</span>
+    <span class="stat-label">points</span>
+  </div>
+  <div class="stat">
+    <span class="stat-value" id="words-found">0</span>
+    <span class="stat-label">words</span>
+  </div>
+  <div class="stat coords">
+    <span class="stat-value" id="coords">0, 0</span>
+    <span class="stat-label">position</span>
+  </div>
+
+  <div class="topbar-actions">
+    <div class="zoom-group" role="group" aria-label="Zoom">
+      <button id="zoom-out" type="button" class="ghost zoom-btn" title="Zoom out" aria-label="Zoom out">−</button>
+      <span id="zoom-level" class="zoom-level">100%</span>
+      <button id="zoom-in" type="button" class="ghost zoom-btn" title="Zoom in" aria-label="Zoom in">+</button>
+    </div>
+    <button id="pan-toggle" type="button" class="ghost" aria-pressed="false"
+            title="Switch between selecting words and dragging the grid">Pan</button>
+    <button id="hint-btn" type="button" class="ghost"
+            title="Reveal where one unfound word starts">Hint</button>
+    <button id="rail-toggle" type="button" class="ghost" aria-expanded="false">Scores</button>
+  </div>
+</header>
+
+<main id="stage" hidden>
+  <div id="grid-wrap">
+    <canvas id="grid"></canvas>
+    <div id="selection-readout" hidden><span id="selection-word"></span><span id="selection-len"></span></div>
+    <div id="tooltip" hidden></div>
+    <div id="toast-stack"></div>
+    <p id="help-hint">Drag across letters to claim a word. Scroll to move, pinch or Ctrl+scroll to zoom.</p>
+  </div>
+
+  <aside id="rail">
+    <section class="panel">
+      <div class="tabs" role="tablist">
+        <button class="tab is-active" data-scope="global" role="tab" aria-selected="true">Everyone</button>
+        <button class="tab" data-scope="friends" role="tab" aria-selected="false">Friends</button>
+      </div>
+      <ol id="leaderboard" class="board"></ol>
+    </section>
+
+    <section class="panel">
+      <h2>Just found</h2>
+      <ul id="recent" class="recent"></ul>
+    </section>
+
+    <section class="panel">
+      <h2>Friends</h2>
+      <div class="friend-add">
+        <input id="friend-name" type="text" maxlength="16" autocomplete="off"
+               spellcheck="false" placeholder="Add by name">
+        <button id="friend-add-btn" type="button">Add</button>
+      </div>
+      <p id="friend-msg" class="field-error" hidden></p>
+      <ul id="friend-requests" class="requests"></ul>
+      <ul id="friend-list" class="friends"></ul>
+    </section>
+
+    <!--
+      Ad slot. Deliberately in the chrome, never over the grid: ads that cover
+      gameplay wreck retention, and retention is what actually earns.
+      See README "Wiring up ads" for what to drop in here.
+    -->
+    <section class="panel ad-slot" id="ad-slot" aria-label="Advertisement">
+      <div class="ad-placeholder">
+        <span>Ad slot</span>
+        <span class="ad-dims">300 × 250</span>
+      </div>
+    </section>
+  </aside>
+</main>
+
+<script src="/game.js"></script>
+</body>
+</html>
